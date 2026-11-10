@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#15243b">
+  <meta name="description" content="Svensk guide till iTaoBuy spreadsheet. Hitta kategorier hos Hipobuyfind, kontrollera produktlänkar och QC-bilder och jämför mått och frakt.">
+  <title>iTaoBuy spreadsheet – svensk guide till produktlänkar och QC</title>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sv_SE">
+  <meta property="og:title" content="iTaoBuy spreadsheet – svensk guide till produktlänkar och QC">
+  <meta property="og:description" content="Hitta rätt kategori och lär dig jämföra varianter, plaggmått, kontrollbilder och frakt före ett köp.">
+  <!-- Bing visade inga träffar för den exakta sökningen. Guidens ämnen valdes efter genomgång av tio relevanta webbplatser via en bredare webbsökning. -->
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15243b;
+      --paper: #f8f4ec;
+      --panel: #fffdf8;
+      --muted: #4c5868;
+      --line: #d4d2cb;
+      --accent: #ffac75;
+      --blue: #e3eaf5;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 system-ui, sans-serif; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { line-height: 1.1; }
+    h1 { font-size: clamp(2.25rem, 6vw, 4.8rem); letter-spacing: -.055em; overflow-wrap: anywhere; }
+    h2 { font-size: clamp(1.55rem, 3vw, 2.4rem); letter-spacing: -.035em; }
+    h3 { font-size: 1.22rem; }
+    a { color: inherit; text-underline-offset: .2em; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid #a13e14; outline-offset: 3px; }
+    .masthead a:focus-visible { outline-color: var(--accent); }
+    img { display: block; width: 100%; height: auto; }
+    .wrap { width: min(69rem, calc(100% - 2rem)); margin-inline: auto; }
+    .masthead { background: var(--ink); color: #fff; border-bottom: .35rem solid var(--accent); }
+    .bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .3rem 1rem; padding-block: .75rem; border-bottom: 1px solid #536179; }
+    .brand { font-weight: 800; text-decoration: none; }
+    .eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .intro { padding-block: clamp(1.15rem, 4vw, 2.5rem); }
+    .intro .eyebrow { color: var(--accent); margin-bottom: .55rem; }
+    .intro p:last-child { max-width: 66ch; margin-top: .65rem; color: #f0f2f7; }
+    .opening { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1rem; margin-block: 1rem 2.6rem; }
+    .directory { background: var(--panel); border: 1px solid var(--line); padding: clamp(.7rem, 2vw, 1.35rem); }
+    .directory h2 { font-size: 1.35rem; }
+    .directory ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 .65rem; list-style: none; padding: 0; margin: .65rem 0 0; }
+    .directory a { display: flex; align-items: center; justify-content: space-between; gap: .25rem; min-height: 2.75rem; height: 100%; padding: .3rem .3rem; border-top: 1px solid var(--line); font-size: .91rem; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+    .directory a:hover { background: var(--blue); }
+    .hero { display: grid; grid-template-rows: minmax(0, 1fr) auto; background: #f2f2f2; border: 1px solid var(--line); }
+    .hero img { width: 100%; height: clamp(12rem, 24vw, 19rem); object-fit: contain; }
+    .hero figcaption { background: var(--blue); padding: .6rem .9rem; font-size: .9rem; }
+    .section { margin-block: 2.5rem; }
+    .section > .eyebrow { margin-bottom: .35rem; color: var(--muted); }
+    .section > p:not(.eyebrow) { margin-top: .65rem; max-width: 68ch; color: var(--muted); }
+    .notes { margin-top: 1rem; border-top: 1px solid var(--line); }
+    .notes article { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: .45rem 1.2rem; border-bottom: 1px solid var(--line); padding: 1rem .15rem; }
+    .notes h3 span { display: block; margin-bottom: .35rem; font-size: .78rem; color: #864320; }
+    .notes article p { max-width: 66ch; }
+    .photos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; margin-top: 1rem; }
+    .photos figure { display: grid; align-content: start; background: var(--panel); border: 1px solid var(--line); }
+    .photos img { aspect-ratio: 1; object-fit: contain; background: #f1f1ef; }
+    .photos figcaption { padding: .65rem; font-size: .86rem; }
+    .photos strong { display: block; }
+    .faq { background: var(--blue); padding: clamp(.9rem, 3vw, 1.8rem); }
+    .faq h2 { margin-bottom: .7rem; }
+    details { border-top: 1px solid #aab6c7; }
+    summary { cursor: pointer; padding: .6rem .15rem; font-weight: 750; }
+    details p { max-width: 69ch; padding: 0 .15rem .7rem; }
+    footer { border-top: 1px solid var(--line); padding-block: 1.2rem 2rem; color: var(--muted); font-size: .9rem; }
+    footer p { max-width: 72ch; margin-bottom: .55rem; }
+    @media (max-width: 42rem) {
+      .opening, .notes article { grid-template-columns: minmax(0, 1fr); }
+      .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "sv",
+    "name": "iTaoBuy spreadsheet – svensk guide till produktlänkar och QC",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Vad är ett iTaoBuy spreadsheet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Det är en översikt som samlar produktlänkar efter kategori. Öppna den aktuella annonsen för att se vilka varianter säljaren erbjuder."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vad kan QC-bilder visa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "QC-bilder kan visa synliga detaljer som sömmar, färg och etiketter på den fotograferade varan. Bilderna räcker inte för att fastställa äkthet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur jämför jag två storlekar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mät ett plagg som sitter bra och jämför samma mått i centimeter. För skor kan du börja med fotlängden och kontrollera hur säljarens storlekstabell är uppbyggd."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur uppskattar jag frakt till Sverige?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jämför fraktalternativen med paketets vikt och mått. Lägg ihop varupris, frakt och eventuella avgifter som visas, och räkna om totalsumman till SEK."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vart går kategorilänkarna?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "De går till kategorier hos Hipobuyfind. Kontrollera på den aktuella produktsidan vilken säljare och vilket köpalternativ som anges."
+        }
+      }
+    ]
+  }
+  </script>
+<link rel="canonical" href="https://kakobuyfinds.github.io/xvwhn/">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap">
+      <div class="bar">
+        <a class="brand" href="https://www.hipobuyfind.com">hipobuyfind.com</a>
+        <span class="eyebrow">Skor, plagg och accessoarer</span>
+      </div>
+      <div class="intro">
+        <p class="eyebrow">Svensk köpguide</p>
+        <h1>iTaoBuy spreadsheet</h1>
+        <p>Ett iTaoBuy spreadsheet samlar produktlänkar efter kategori. Börja med en kategori hos Hipobuyfind och jämför sedan färg, mått och bilder i den aktuella produktannonsen.</p>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="opening">
+      <nav class="directory" aria-labelledby="kategorier">
+        <h2 id="kategorier">Hitta rätt kategori</h2>
+        <ul>
+          <li><a href="https://hipobuyfind.com/category-911-Shoes.html">Skor <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-912-Hoodies%2FSweaters.html">Hoodies och tröjor <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-913-T-Shirts.html">T-shirts <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-914-Jackets.html">Jackor <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-915-Pants%2FShorts.html">Byxor och shorts <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-916-Headwear.html">Huvudbonader <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-917-Sets.html">Matchande set <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-918-underwear%2Funderpants.html">Underkläder <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-919-Jersey.html">Matchtröjor <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://hipobuyfind.com/category-920-Accessories.html">Accessoarer <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </nav>
+      <figure class="hero">
+        <img src="https://www.nike.com.kw/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dw49ca22ad/nk/c25/5/6/9/a/6/c25569a6_545c_439c_bf6e_1b214a51fd9e.jpg?sh=480&amp;sm=fit&amp;sw=480"
+             srcset="https://www.nike.com.kw/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dw49ca22ad/nk/c25/5/6/9/a/6/c25569a6_545c_439c_bf6e_1b214a51fd9e.jpg?sh=480&amp;sm=fit&amp;sw=480 480w,
+                     https://www.nike.com.kw/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dw49ca22ad/nk/c25/5/6/9/a/6/c25569a6_545c_439c_bf6e_1b214a51fd9e.jpg?sh=720&amp;sm=fit&amp;sw=720 720w"
+             sizes="(max-width: 42rem) 192px, (max-width: 79.2rem) 24vw, 304px"
+             alt="Vit och gul Nike Air Max 1 Essential med synlig luftkudde i hälen, fotograferad från sidan"
+             width="480" height="480" loading="eager" fetchpriority="high">
+        <figcaption><strong>Nike Air Max 1 Essential.</strong> Från sidan syns sulans profil och hur de gula och vita partierna möts.</figcaption>
+      </figure>
+    </div>
+
+    <section class="section" aria-labelledby="artiklar">
+      <p class="eyebrow">Fyra korta guider</p>
+      <h2 id="artiklar">Jämför före köp</h2>
+      <div class="notes">
+        <article>
+          <h3><span>01 / Annonsen</span>Produktlänkar för iTaoBuy</h3>
+          <p>Spara säljarens produktlänk tillsammans med artikelnummer, modellnamn och exakt färgvariant. Om flera annonser har samma produktbild, jämför säljarens namn och produkt-ID. När en länk till Weidian, Taobao eller 1688 öppnar en annan variant, välj rätt alternativ på nytt och kontrollera vilken storlek som visas.</p>
+        </article>
+        <article>
+          <h3><span>02 / Passformen</span>Storleksguide för iTaoBuy</h3>
+          <p>För skor, mät fotlängden från häl till längsta tå och jämför med säljarens skostorlekstabell. För en hoodie, lägg ett eget plagg plant och mät bröstbredd, ärmlängd och plagglängd. För byxor, jämför midjemått och innerbenslängd. Kolla om tabellen anger kroppsmått eller plaggmått och om midjan har mätts plant eller runtom.</p>
+        </article>
+        <article>
+          <h3><span>03 / Bilderna</span>QC-bilder för iTaoBuy</h3>
+          <p>QC betyder kvalitetskontroll. Använd lagerbilder av varan när de finns och jämför med annonsbilderna från samma vinkel. På skor kan du kontrollera hälens sömmar och sulmönstret. På en jacka kan en närbild visa dragkedjans infästning och tvättetiketten. Om en storleksetikett är suddig, be om en skarpare bild av just den delen.</p>
+        </article>
+        <article>
+          <h3><span>04 / Paketet</span>Frakt med iTaoBuy</h3>
+          <p>Anteckna varupriset och jämför fraktalternativ till Sverige med samma paketmått och paketvikt. Kontrollera om fraktpriset beräknas på faktisk vikt eller volymvikt. Lägg ihop varupris, inrikesfrakt, internationell frakt och eventuella avgifter som visas. Räkna om beloppet till SEK med den kurs som används vid betalningen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="bildguide">
+      <p class="eyebrow">Bildguide</p>
+      <h2 id="bildguide">Fyra detaljer att titta närmare på</h2>
+      <p>Bilderna visar referensmodeller. Se den aktuella annonsen för säljarens egna bilder och tillgängliga varianter.</p>
+      <div class="photos">
+        <figure>
+          <img src="https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1758012359/796395_XJG9V_9692_001_100_0000_Light-cotton-jersey-t-shirt-with-embroidery.jpg"
+               alt="Vit kortärmad Gucci T-shirt i bomullsjersey, fotograferad framifrån"
+               width="490" height="490" loading="lazy" decoding="async">
+          <figcaption><strong>Gucci · T-shirt</strong> Jämför axelbredd och halsringning när två tröjor har liknande snitt.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://en.louisvuitton.com/images/is/image/lv/1/PP_VP_M/louis-vuitton--M7088M_PM2_Front%20view.jpg?hei=480&amp;wid=480"
+               alt="Svart Louis Vuitton LV First-keps med diskret monogram, fotograferad framifrån"
+               width="480" height="480" loading="lazy" decoding="async">
+          <figcaption><strong>Louis Vuitton · LV First</strong> Be om en bild bakifrån om du vill se spännet och hur kepsens omkrets kan justeras.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://assets.hermes.com/is/image/hermesproduct/au-triple-galop-double-face-scarf-90--904385S%2002-flat-wm-3-0-0-480-480_g.jpg"
+               alt="Hermès Au Triple Galop-scarf med hästmotiv och ett hörn vikt så att baksidan syns"
+               width="480" height="480" loading="lazy" decoding="async">
+          <figcaption><strong>Hermès · Au Triple Galop</strong> Kontrollera sidlängd och kantfinish. Bilder på båda sidor gör det lättare att jämföra mönstret.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://assets.christiandior.com/is/image/diorprod/R2752HOMSTD990_E01-1?%24default_GH%24=&amp;crop=562%2C732%2C909%2C520&amp;extend=0%2C0%2C0%2C250&amp;hei=520&amp;scale=0.875&amp;wid=480"
+               alt="Silverfärgad Dior CD Icon-ring med sammanlänkade bokstäver C och D"
+               width="480" height="520" loading="lazy" decoding="async">
+          <figcaption><strong>Dior · CD Icon</strong> Mät innerdiametern på en ring som passar och jämför med säljarens ringstorlekstabell.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section faq" aria-labelledby="fragor">
+      <h2 id="fragor">Vanliga frågor</h2>
+      <details open>
+        <summary>Vad är ett iTaoBuy spreadsheet?</summary>
+        <p>Det är en översikt som samlar produktlänkar efter kategori. Öppna den aktuella annonsen för att se vilka varianter säljaren erbjuder.</p>
+      </details>
+      <details>
+        <summary>Vad kan QC-bilder visa?</summary>
+        <p>QC-bilder kan visa synliga detaljer som sömmar, färg och etiketter på den fotograferade varan. Bilderna räcker inte för att fastställa äkthet.</p>
+      </details>
+      <details>
+        <summary>Hur jämför jag två storlekar?</summary>
+        <p>Mät ett plagg som sitter bra och jämför samma mått i centimeter. För skor kan du börja med fotlängden och kontrollera hur säljarens storlekstabell är uppbyggd.</p>
+      </details>
+      <details>
+        <summary>Hur uppskattar jag frakt till Sverige?</summary>
+        <p>Jämför fraktalternativen med paketets vikt och mått. Lägg ihop varupris, frakt och eventuella avgifter som visas, och räkna om totalsumman till SEK.</p>
+      </details>
+      <details>
+        <summary>Vart går kategorilänkarna?</summary>
+        <p>De går till kategorier hos Hipobuyfind. Kontrollera på den aktuella produktsidan vilken säljare och vilket köpalternativ som anges.</p>
+      </details>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">
+      <p>Fristående guide. Varumärken och referensbilder används för att identifiera de modeller som visas.</p>
+      <a href="https://www.hipobuyfind.com">Till Hipobuyfind</a>
+    </div>
+  </footer>
+</body>
+</html>
